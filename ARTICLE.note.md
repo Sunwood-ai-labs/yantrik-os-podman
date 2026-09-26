@@ -26,7 +26,7 @@ PodmanやDockerはホストOSのカーネルを共有するコンテナランタ
 
 その代表的なコンテナイメージが **`qemux/qemu`** です。ComposeファイルにISOイメージとKVMデバイス（`/dev/kvm`）を渡して起動すると、コンテナ内でQEMUが立ち上がり、`http://127.0.0.1:8006` をブラウザーで開くだけでデスクトップ画面を操作できます。
 
-![Windows 11＋WSL2 Podman＋qemux/qemuの構成図](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/assets/architecture.png)
+![Windows 11＋WSL2 Podman＋qemux/qemuの構成図](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/refs/heads/main/assets/architecture.png)
 
 手元のWindows 11環境では、すでにOpenMausBotなどの検証用にWSL2ベースのPodman Machine（`openmausbot`）を運用していました。新たにVirtualBoxを導入する代わりに既存のPodman Machineへ相乗りすれば、コンテナの起動・停止もイメージ管理も `podman compose` に統一できます。
 
