@@ -8,7 +8,7 @@ Yantrik OSはDebian 13（Linuxカーネル 6.12.107）をベースに開発さ�
 
 ただ、新しいOSを試すために実機のUSBメモリへ書き込んだり、VirtualBoxで仮想マシンを毎回手作業で構築したりするのは手間がかかります。そこで今回は、Windows 11＋WSL2上の **Podman** でQEMUコンテナ（`qemux/qemu`）を動かし、ブラウザーからYantrik OSを操作できる環境を構築しました。
 
-![Podman＋QEMUコンテナ上で起動したYantrik OSのデスクトップ画面](screenshots/11-after-skip.png)
+![Podman＋QEMUコンテナ上で起動したYantrik OSのデスクトップ画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/11-after-skip.png)
 
 *ブラウザーの `http://127.0.0.1:8006`（noVNC）越しに表示したYantrik OSのデスクトップ画面。*
 
@@ -26,7 +26,7 @@ PodmanやDockerはホストOSのカーネルを共有するコンテナランタ
 
 その代表的なコンテナイメージが **`qemux/qemu`** です。ComposeファイルにISOイメージとKVMデバイス（`/dev/kvm`）を渡して起動すると、コンテナ内でQEMUが立ち上がり、`http://127.0.0.1:8006` をブラウザーで開くだけでデスクトップ画面を操作できます。
 
-![Windows 11＋WSL2 Podman＋qemux/qemuの構成図](assets/architecture.svg)
+![Windows 11＋WSL2 Podman＋qemux/qemuの構成図](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/assets/architecture.png)
 
 手元のWindows 11環境では、すでにOpenMausBotなどの検証用にWSL2ベースのPodman Machine（`openmausbot`）を運用していました。新たにVirtualBoxを導入する代わりに既存のPodman Machineへ相乗りすれば、コンテナの起動・停止もイメージ管理も `podman compose` に統一できます。
 
@@ -103,35 +103,35 @@ volumes:
 
 Step 1ではユーザー名と利用目的（Building software / Research & learning など）を入力します。
 
-![Step 1: 名前と利用目的の入力画面](screenshots/02-onboarding-filled.png)
+![Step 1: 名前と利用目的の入力画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/02-onboarding-filled.png)
 
 Step 2では関心のあるトピック（AI & ML、Systems、Open Sourceなど）、Step 3では現在地（`Tokyo`）とタイムゾーンを設定します。
 
-![Step 2: 関心トピックの選択画面](screenshots/04-onboarding-topics-selected.png)
+![Step 2: 関心トピックの選択画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/04-onboarding-topics-selected.png)
 
-![Step 3: 地域設定画面](screenshots/06-onboarding-location-filled.png)
+![Step 3: 地域設定画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/06-onboarding-location-filled.png)
 
 続くStep 4ではシステムハードウェアの自動診断が行われ、QEMUコンテナに割り当てた4コアCPUと8GB RAMが認識されました。
 
-![Step 4: ハードウェア診断画面](screenshots/07-onboarding-step4.png)
+![Step 4: ハードウェア診断画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/07-onboarding-step4.png)
 
 最後のStep 5では、AIの実行モードを「Local First（ローカル推論）」「Cloud Powered（クラウドAPI）」「Configure Later（後で設定）」の3つから選びます。Cloud Poweredを選ぶと、OpenAI、Anthropic、Google、DeepSeek、OpenRouterの各APIキーをその場で登録できます。
 
-![Step 5: AI実行モードの選択画面](screenshots/08-onboarding-step5.png)
+![Step 5: AI実行モードの選択画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/08-onboarding-step5.png)
 
-![Cloud Powered選択時のプロバイダー設定画面](screenshots/10-onboarding-provider-google.png)
+![Cloud Powered選択時のプロバイダー設定画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/10-onboarding-provider-google.png)
 
 ### 2. デスクトップ画面と33種類のネイティブアプリ
 
 オンボーディングを完了（またはスキップ）すると、ダークテーマを基調とした独自デスクトップシェルが表示されます。画面上部の検索バー（`Super + K`）からはコマンド検索やアプリの呼び出しができ、左上の「Apps」メニューを開くと33種類のネイティブアプリがカテゴリ別に並んでいます。
 
-![Super+Kによるコマンド検索画面](screenshots/12-command-search.png)
+![Super+Kによるコマンド検索画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/12-command-search.png)
 
-![33種類のネイティブアプリが並ぶAppsメニュー](screenshots/13-apps-menu.png)
+![33種類のネイティブアプリが並ぶAppsメニュー](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/13-apps-menu.png)
 
 画面右側のサイドパネルにはAIコンパニオン（Companion Chat）が常駐しており、作業中の画面のすぐ隣でチャットやタスク指示を行えるレイアウトになっています。
 
-![右側に表示されるCompanion Chatパネル](screenshots/25-companion-chat-panel.png)
+![右側に表示されるCompanion Chatパネル](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/25-companion-chat-panel.png)
 
 ### 3. 設定画面：4種類のAIハーネスと50種類のスキルストア
 
@@ -139,33 +139,33 @@ Step 2では関心のあるトピック（AI & ML、Systems、Open Sourceなど�
 
 「Harnesses」タブでは、OS標準の **Yantrik Companion** だけでなく、**DeepSeek**、**Hermes**（Nous Research）、**OpenClaw** といった複数のエージェントハーネスを切り替えたり追加したりできます。
 
-![Settings内のHarnesses（Connect a Mind）画面](screenshots/15-connect-a-mind-settings.png)
+![Settings内のHarnesses（Connect a Mind）画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/15-connect-a-mind-settings.png)
 
 「AI & Intelligence」タブでは、ローカルLLMサーバー（`llama-server`）の稼働状態確認や、コンテキストウィンドウ上限（8,192トークン）・自律実行ループの最大ステップ数（15ステップ）などを細かく調整できます。
 
-![Settings内のAI & Intelligence設定画面](screenshots/16-settings-ai-intelligence.png)
+![Settings内のAI & Intelligence設定画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/16-settings-ai-intelligence.png)
 
 さらに「Skills」タブには、コードレビュー、Gitワークフロー、システム診断、ドキュメント生成など **50種類の組み込みスキル** があらかじめ用意されており、各スキルの有効・無効をスイッチ一つで切り替えられます。
 
-![50種類のスキルが並ぶSkill Store画面](screenshots/17-settings-skills.png)
+![50種類のスキルが並ぶSkill Store画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/17-settings-skills.png)
 
 「System」タブを確認すると、OSバージョンは `v0.1.0-641-g9f675b7`、ベースはDebian GNU/Linux 13（trixie）、カーネルは `6.12.107` で動作していました。
 
-![Settings内のSystem情報画面](screenshots/18-settings-system.png)
+![Settings内のSystem情報画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/18-settings-system.png)
 
 ### 4. 標準アプリの動作確認
 
 標準搭載されているアプリ群も一通り起動してみました。ファイル管理（Files）、メモ帳（Notes）、エージェント管理（Agents）、長期記憶管理（Memories）、システムモニター（System Monitor）、そして息抜き用の2048ゲーム（Arcade）まで、すべて軽快に動作します。
 
-![Filesアプリ](screenshots/20-files-app.png)
+![Filesアプリ](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/20-files-app.png)
 
-![Agentsアプリ](screenshots/22-agents-app.png)
+![Agentsアプリ](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/22-agents-app.png)
 
-![Memoriesアプリ](screenshots/23-memory-app.png)
+![Memoriesアプリ](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/23-memory-app.png)
 
-![System Monitorアプリ](screenshots/31-system-monitor-app.png)
+![System Monitorアプリ](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/31-system-monitor-app.png)
 
-![Arcadeアプリ（2048ゲーム）](screenshots/33-arcade-new-game.png)
+![Arcadeアプリ（2048ゲーム）](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/33-arcade-new-game.png)
 
 ---
 
@@ -177,7 +177,7 @@ Yantrik OSを触っていて最も驚いたのが、OS標準のプロセス間�
 
 実際にターミナル（Terminalアプリ）を開き、`yos` コマンドを試してみました。
 
-![yos --helpの実行画面](screenshots/25-terminal-yos-help-top.png)
+![yos --helpの実行画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/25-terminal-yos-help-top.png)
 
 まず `yos ls` を実行すると、現在Surface Protocolを公開して稼働しているGUIアプリの一覧とプロセスIDが返ってきます。
 
@@ -185,7 +185,7 @@ Yantrik OSを触っていて最も驚いたのが、OS標準のプロセス間�
 yos ls
 ```
 
-![yos lsで起動中のGUIアプリ一覧を取得した画面](screenshots/26-terminal-yos-ls.png)
+![yos lsで起動中のGUIアプリ一覧を取得した画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/26-terminal-yos-ls.png)
 
 次に、起動しておいたメモ帳アプリ（`notes`）に対して `yos describe notes` を実行すると、現在の画面状態（選択中のノートや文字数）、UI要素、そして外部から呼び出し可能なアクション一覧（`new_note`、`set_title`、`set_body`、`save_note`、`delete_note`、`search`）がJSON形式で出力されました。
 
@@ -193,9 +193,9 @@ yos ls
 yos describe notes
 ```
 
-![yos describe notesでNotesアプリの状態とアクション定義を取得した画面](screenshots/27-terminal-yos-describe-notes.png)
+![yos describe notesでNotesアプリの状態とアクション定義を取得した画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/27-terminal-yos-describe-notes.png)
 
-![Notesアプリが公開しているアクション一覧（new_note, set_title, set_body, save_noteなど）](screenshots/28-terminal-yos-notes-actions.png)
+![Notesアプリが公開しているアクション一覧（new_note, set_title, set_body, save_noteなど）](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/28-terminal-yos-notes-actions.png)
 
 アクションの名前と引数が分かったので、そのままターミナルから `yos act` コマンドを4行叩いて、Notesアプリの中に新しいノートを作成・保存してみます。
 
@@ -206,11 +206,11 @@ yos act notes set_body --body "Yantrik OS v0.1.0 running on Windows 11 + WSL2 + 
 yos act notes save_note
 ```
 
-![yos actコマンドでノート作成・タイトル設定・本文入力・保存を実行した画面](screenshots/29-yos-act-new-note.png)
+![yos actコマンドでノート作成・タイトル設定・本文入力・保存を実行した画面](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/29-yos-act-new-note.png)
 
 各コマンドに対して `{"ok": true}` が返ってきた直後、デスクトップ上のNotesアプリのウィンドウを確認すると、座標クリックを一切使わずにタイトルと本文が入ったノートが生成・保存されていました。
 
-![yosコマンドによってNotesアプリのGUI上に自動作成されたノート](screenshots/30-notes-app-created-via-yos.png)
+![yosコマンドによってNotesアプリのGUI上に自動作成されたノート](https://raw.githubusercontent.com/Sunwood-ai-labs/yantrik-os-podman/main/screenshots/30-notes-app-created-via-yos.png)
 
 GUIアプリが最初から人間用の画面描画とエージェント用の構造化API（Surface Protocol）の両方を備えているため、AIエージェントが座標推定の誤差で操作に失敗することなく、デスクトップアプリを確実かつ高速に制御できる設計になっています。
 
