@@ -1,0 +1,55 @@
+name: Repository QA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  structure:
+    name: Validate Compose, scripts, and repository structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate Compose file
+        shell: bash
+        run: |
+          touch yantrik.iso
+          docker compose -f compose.yaml config --quiet
+          rm -f yantrik.iso
+
+      - name: Syntax-check PowerShell scripts
+        shell: pwsh
+        run: |
+          $errors = $null
+          foreach ($file in @('yantrik-podman.ps1', 'scripts/download-iso.ps1')) {
+              [void][System.Management.Automation.Language.Parser]::ParseFile(
+                  (Resolve-Path $file),
+                  [ref]$null,
+                  [ref]$errors
+              )
+              if ($errors.Count -gt 0) {
+                  throw "Syntax errors in ${file}: $($errors | Out-String)"
+              }
+          }
+
+      - name: Reject oversized or disk-image payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          tracked="$(git ls-files)"
+          ! grep -E '\.(iso|img|qcow2|raw|vmdk|vdi|ppm)$' <<< "$tracked"
+          test -f README.md
+          test -f README.ja.md
+          test -f LICENSE
+          test -f assets/logo.svg
+          test -f assets/architecture.svg
+
+      - name: Check whitespace
+        run: git diff --check
