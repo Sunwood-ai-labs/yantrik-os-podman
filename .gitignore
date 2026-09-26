@@ -1,0 +1,21 @@
+# OS / Disk images (downloaded locally via scripts/download-iso.ps1)
+*.iso
+*.img
+*.qcow2
+*.raw
+*.vmdk
+*.vdi
+
+# Temporary screen captures & QEMU dumps
+*.ppm
+screen.png
+step*.png
+
+# Local environment & secrets
+.env
+.env.*
+!.env.example
+
+# OS metadata
+.DS_Store
+Thumbs.db

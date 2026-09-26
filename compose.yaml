@@ -1,0 +1,27 @@
+services:
+  yantrik:
+    image: docker.io/qemux/qemu
+    environment:
+      # Yantrik OS hybrid ISO uses a GPT protective MBR (0xee) + EFI System Partition (/efi.img).
+      # qemux/qemu attaches /boot.iso as a USB 3.0 storage disk, so OVMF (UEFI) is required.
+      BOOT_MODE: "uefi"
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      DISK_SIZE: "32G"
+      VGA: "virtio"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "127.0.0.1:8006:8006"
+    volumes:
+      # Do NOT append :ro here. qemux/qemu v7.50 detects the hybrid MBR signature (55aa)
+      # on /boot.iso and attaches it as a read-write USB storage device (-device usb-storage).
+      - ./yantrik.iso:/boot.iso
+      - yantrik-data:/storage
+    stop_grace_period: 2m
+
+volumes:
+  yantrik-data:
